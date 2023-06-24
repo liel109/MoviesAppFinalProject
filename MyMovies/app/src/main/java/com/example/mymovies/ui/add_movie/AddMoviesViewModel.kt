@@ -13,7 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AddMoviesViewModel @Inject constructor(val moviesRepository: MoviesRepository) : ViewModel(){
+class AddMoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel(){
     lateinit var requestedGenre : String
     var searchByParam = eSearchBy.Title
     private val _keyword = MutableLiveData<String>()

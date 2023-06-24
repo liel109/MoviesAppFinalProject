@@ -23,6 +23,8 @@
     <string name="seperator">|</string>
     <string name="stars_example">★★★★★</string>
     <string name="movie_length_example">123m</string>
+    <string name="movie_title_example">Batman</string>
+    <string name="movie_genre_example">Action | Crime | Drama</string>
     <string name="movie_description_example">this is some content description about the movie that even spans among several lines</string>
     <string name="movie_plot_detail_layout">Plot:</string>
     <string name="movie_notes_detail_layout">Notes:</string>
@@ -35,4 +37,10 @@
     <string name="tbd">TBD</string>
     <string name="year_example">2012</string>
     <string name="no_connection">No Connection</string>
+    <string name="search">Search</string>
+    <string name="title">Title</string>
+    <string name="genre">Genre</string>
+    <string name="note_hint">Add a note…</string>
+    <string name="done">Done</string>
+
 </resources>

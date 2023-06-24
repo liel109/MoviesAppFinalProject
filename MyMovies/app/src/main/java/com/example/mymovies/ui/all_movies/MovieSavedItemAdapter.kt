@@ -39,7 +39,7 @@ class MovieSavedItemAdapter(private val listener : MovieItemListener, private va
             movieItem = item
             itemBinding.movieTitle.text = item.title
             itemBinding.movieTime.text = parseMovieLength(item.length)
-            itemBinding.stars.text = "${context.getString(R.string.star)}".repeat(calculateStars(item.rating))
+            itemBinding.stars.text = context.getString(R.string.star).repeat(calculateStars(item.rating))
             Glide.with(itemBinding.root).load(getHeartPhoto(item.isFav)).override(itemBinding.heart.width, itemBinding.heart.height)
             .into(itemBinding.heart)
             setPosterUri(item.photo)

@@ -43,7 +43,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.toString().length > 2 || s.toString().length == 0){
+                if(s.toString().length > 2 || s.toString().isEmpty()){
                     setNewMoviesList(s.toString())
                 }
             }
@@ -52,7 +52,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
             }
         })
 
-        binding.searchByRadio.setOnCheckedChangeListener { group, checkedId ->
+        binding.searchByRadio.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.title_radio -> viewModel.searchByParam = eSearchBy.Title
                 R.id.genre_radio -> viewModel.searchByParam = eSearchBy.Genre
@@ -78,7 +78,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                 }
                 is Error -> {
                     showProgressBar()
-                    Toast.makeText(requireContext(), requireContext().getString(R.string.no_connection), Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
                 }
             }
         }

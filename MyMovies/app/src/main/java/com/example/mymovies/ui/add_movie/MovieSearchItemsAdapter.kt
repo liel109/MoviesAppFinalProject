@@ -32,13 +32,13 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
         fun bind(movieItem: MovieSearchItem, genreRequested : String? = null) {
             this.movieItem = movieItem
             itemBinding.title.text = movieItem.title
-            itemBinding.genres.text = if(movieItem.genres.size != 0){
+            itemBinding.genres.text = if(movieItem.genres.isNotEmpty()){
                 parseGenres(movieItem.genres, genreRequested)
             }
             else{
                 context.getString(R.string.empty_string)
             }
-            itemBinding.releaseDate.text = if(movieItem.releaseDate.length !=0 ) {
+            itemBinding.releaseDate.text = if(movieItem.releaseDate.isNotEmpty()) {
                 parseReleaseDate(movieItem.releaseDate)
             }
             else{
@@ -78,7 +78,7 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
             while(i < numOfGenresToAdd && i < genres.size){
                 val genre = Constants.ID_TO_STRING_GENRES[genres[i]]
                 if(genre != mutableGenreRequested){
-                    stringBuilder.append("${genre} | ")
+                    stringBuilder.append("$genre | ")
                     i++
                 }
             }
@@ -86,7 +86,7 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
             return stringBuilder.toString()
         }
 
-        fun parseGenre(genreToAdd : String) : String {
+        private fun parseGenre(genreToAdd : String) : String {
             return genreToAdd.lowercase(Locale.ENGLISH).replaceFirstChar { it.uppercase() }
         }
 

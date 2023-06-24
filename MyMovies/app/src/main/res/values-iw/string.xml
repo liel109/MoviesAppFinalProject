@@ -25,6 +25,8 @@
     <string name="stars_example">★★★★★</string>
     <string name="movie_length_example">123ד</string>
     <string name="movie_description_example">תיאור עלילת הסרט</string>
+    <string name="movie_title_example">באטמן</string>
+    <string name="movie_genre_example">אקשן | פשע | דרמה</string>
     <string name="movie_plot_detail_layout">עלילה:</string>
     <string name="movie_notes_detail_layout">הערות:</string>
     <string name="change_image">שנה תמונה</string>
@@ -35,5 +37,10 @@
     <string name="empty_string"></string>
     <string name="tbd">לא ידוע</string>
     <string name="year_example">2012</string>
-    <style name="no_connection">אין חיבור לאינטרנט</style>
+    <string name="no_connection">אין חיבור לאינטרנט</string>
+    <string name="search">חפש</string>
+    <string name="title">כותרת</string>
+    <string name="genre">ז\'ָאנר</string>
+    <string name="note_hint">תוסיף הערה…</string>
+    <string name="done">סיום</string>
 </resources>

@@ -30,7 +30,7 @@ class EditItemViewModel @Inject constructor(val moviesRepository: MoviesReposito
         _id.value = id
     }
 
-    fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
+    private fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
         liveData(Dispatchers.IO) {
             val source = moviesRepository.getMovieFromLocalDB(movieId)
             if(source != null) {

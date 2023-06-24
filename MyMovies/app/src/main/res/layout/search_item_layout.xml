@@ -37,21 +37,21 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="The Dark Knight Rises"/>
+                android:text="@string/movie_title_example"/>
 
             <TextView
                 android:id="@+id/release_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="2012"/>
+                android:text="@string/year_example"/>
 
             <TextView
                 android:id="@+id/genres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Action | Crime | Drama"/>
+                android:text="@string/movie_genre_example"/>
 
         </LinearLayout>
 

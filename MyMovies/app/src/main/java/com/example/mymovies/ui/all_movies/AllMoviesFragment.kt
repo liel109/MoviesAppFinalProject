@@ -104,7 +104,7 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(getString(R.string.confirmation))
-                builder.setMessage(getString(R.string.delete_all_confirmation_dialog))
+                builder.setMessage(getString(R.string.delete_confirmation_dialog))
 
                 builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
                     viewModel.deleteMovie(adapter.itemAt(viewHolder.adapterPosition))

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">הסרט האהוב עליי</string>
+    <string name="saved_items">סרטים שמורים:</string>
+    <string name="add_item_headline">הוסף סרט</string>
+    <string name="movie_title">שם הסרט</string>
+    <string name="movie_description">עלילה</string>
+    <string name="length">אורך:</string>
+    <string name="rating">דירוג:</string>
+    <string name="movie_length">אורך:</string>
+    <string name="pick_image">בחר תמונה</string>
+    <string name="confirmation">אישור</string>
+    <string name="delete_all_confirmation_dialog">האם אתה בטוח שברצונך למחוק את כל הסרטים?</string>
+    <string name="delete_confirmation_dialog">האם אתה בטוח שברצונך סרט זה?</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="add_item">הוסף</string>
+    <string name="trash_can_description">מחק הכל</string>
+    <string name="movie_poster">פוסטר הסרט</string>
+    <string name="length_hours">ש\'</string>
+    <string name="length_minutes">ד\'</string>
+    <string name="rate_star_description">דירוג</string>
+    <string name="select_image_preview">בחירת תמונה</string>
+    <string name="seperator">|</string>
+    <string name="stars_example">★★★★★</string>
+    <string name="movie_length_example">123ד</string>
+    <string name="movie_description_example">תיאור עלילת הסרט</string>
+    <string name="movie_plot_detail_layout">עלילה:</string>
+    <string name="movie_notes_detail_layout">הערות:</string>
+    <string name="change_image">שנה תמונה</string>
+    <string name="change_item">עדכן</string>
+    <string name="edit_movie">ערוך סרט</string>
+    <string name="invalid_input_message">אנא מלא את כל הפרטים הדרושים</string>
+    <string name="star">★</string>
+    <string name="empty_string"></string>
+    <string name="tbd">לא ידוע</string>
+    <string name="year_example">2012</string>
+    <style name="no_connection">אין חיבור לאינטרנט</style>
+</resources>

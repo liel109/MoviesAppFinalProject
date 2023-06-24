@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav.xml"
+    app:startDestination="@id/allMoviesFragment">
+
+    <fragment
+        android:id="@+id/allMoviesFragment"
+        android:name="com.example.mymovies.ui.all_movies.AllMoviesFragment"
+        android:label="all_movies_fragment"
+        tools:layout="@layout/all_movies_fragment" >
+        <action
+            android:id="@+id/action_allMoviesFragment_to_addMovieFragment"
+            app:destination="@id/addMovieFragment" />
+        <action
+            android:id="@+id/action_allMoviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_allMoviesFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMovieFragment"
+        android:name="com.example.mymovies.ui.add_movie.AddMovieFragment"
+        android:label="add_movie_fragment"
+        tools:layout="@layout/add_movie_fragment" >
+        <action
+            android:id="@+id/action_addMovieFragment_to_allMoviesFragment"
+            app:destination="@id/allMoviesFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.mymovies.ui.movie_details.MovieDetailsFragment"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/movie_details_fragment" />
+    <dialog
+        android:id="@+id/editItemFragment"
+        android:name="com.example.mymovies.ui.edit_movie.EditItemFragment"
+        android:label="EditItemFragment" >
+        <action
+            android:id="@+id/action_editItemFragment_to_allMoviesFragment"
+            app:destination="@id/allMoviesFragment" />
+    </dialog>
+</navigation>

@@ -7,10 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
+import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.databinding.MovieDetailsFragmentBinding
 import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
@@ -37,30 +40,6 @@ class MovieDetailsFragment : DialogFragment() {
         binding.itemCard.minimumWidth = (resources.displayMetrics.widthPixels * 0.85).toInt()
         binding.itemCard.minimumHeight = (resources.displayMetrics.heightPixels * 0.85).toInt()
 
-        viewModel.movieItem.observe(viewLifecycleOwner){
-            when(it.status){
-                is Loading -> {
-                    showProgressBar()
-                }
-                is Success -> {
-                    showDetails()
-                    if(it.status.data != null) {
-                        val movieItem = it.status.data
-                        binding.itemTitle.text = movieItem.title
-                        binding.itemDesc.text = movieItem.plot
-                        binding.itemLength.text = parseMovieLength(movieItem.length)
-                        binding.itemComments.text = movieItem.notes
-                        binding.itemRating.text = requireContext().getString(R.string.star).repeat(calculateStars(movieItem.rating))
-                        binding.itemYear.text = parseReleaseDate(movieItem.year)
-                        setPosterUri(movieItem.photo)
-                        Glide.with(binding.root).load(getHeartPhoto(movieItem.isFav))
-                            .into(binding.heart)
-                    }
-                }
-                is Error -> { println("inside error ${it.status.data}")
-                }
-            }
-        }
         arguments?.getInt("id")?.let {
             viewModel.setId(it)
         }
@@ -69,12 +48,20 @@ class MovieDetailsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    private fun parseReleaseDate(releaseDate : String) : String{
-        return releaseDate.substring(0,4)
+        viewModel.movieItem.observe(viewLifecycleOwner){
+            when(it.status){
+                is Loading -> {
+                    showProgressBar()
+                }
+                is Success -> {
+                    showDetails()
+                    if(it.status.data != null) {
+                        setDetailsInView(it.status.data)
+                    }
+                }
+                is Error -> { Utils.showNoConnectionToast(requireContext()) }
+            }
+        }
     }
 
     private fun setPosterUri(uri : String?){
@@ -88,19 +75,16 @@ class MovieDetailsFragment : DialogFragment() {
         }
     }
 
-    private fun parseMovieLength(length : Int) : String{
-        return "${length/60}${requireContext().getString(R.string.length_hours)} ${length%60}${requireContext().getString(R.string.length_minutes)}"
-    }
-
-    private fun calculateStars(rating : Double) : Int{
-        return (rating / 2 + 1).toInt()
-    }
-
-    private fun getHeartPhoto(isFavorite : Boolean) : Int{
-        if(isFavorite){
-            return R.drawable.ic_full_heart
-        }
-        return R.drawable.ic_empty_heart
+    private fun setDetailsInView(movieItem : MovieItem){
+        binding.itemTitle.text = movieItem.title
+        binding.itemDesc.text = movieItem.plot
+        binding.itemLength.text = Utils.parseMovieLength(movieItem.length, requireContext())
+        binding.itemComments.text = (movieItem.notes)
+        binding.itemRating.text = requireContext().getString(R.string.star).repeat(Utils.calculateStars(movieItem.rating))
+        binding.itemYear.text = Utils.parseReleaseDate(movieItem.year)
+        setPosterUri(movieItem.photo)
+        Glide.with(binding.root).load(Utils.getHeartPhoto(movieItem.isFav))
+            .into(binding.heart)
     }
 
     private fun showDetails(){
@@ -122,21 +106,11 @@ class MovieDetailsFragment : DialogFragment() {
         layoutParams?.width = (resources.displayMetrics.widthPixels * 0.85).toInt()
         layoutParams?.height = (resources.displayMetrics.heightPixels * 0.85).toInt()
         window?.setBackgroundDrawableResource(R.color.transparent)
-        val centerX = resources.displayMetrics.widthPixels / 2
-        val centerY = resources.displayMetrics.heightPixels / 2
-        val translationX = pressedLocation!![0] - centerX
-        val translationY = pressedLocation!![1] - centerY
-        val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
-        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
-        val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.54f, 1f)
-        val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
-        val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
-
-        val animatorSet = AnimatorSet().apply {
-            playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)
-            duration = Constants.POP_ANIMATION_DURATION
+        val centerX = resources.displayMetrics.widthPixels
+        val centerY = resources.displayMetrics.heightPixels
+        if(window != null && pressedLocation != null) {
+            Utils.scaleInAnimation(window, pressedLocation, intArrayOf(centerX, centerY))
         }
-        animatorSet.start()
     }
 
 }

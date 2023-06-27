@@ -55,4 +55,10 @@ class EditItemViewModel @Inject constructor(val moviesRepository: MoviesReposito
              moviesRepository.updateMovieNotes(movieId, newNote)
          }
     }
+
+    fun setFavorite(movieId : Int, newStatus : Boolean){
+        viewModelScope.launch(Dispatchers.IO) {
+            moviesRepository.updateMovieFavoriteStatus(movieId, newStatus)
+        }
+    }
 }

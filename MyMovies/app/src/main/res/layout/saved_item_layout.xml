@@ -37,6 +37,7 @@
                     android:paddingHorizontal="10dp"
                     android:text="@string/movie_title"
                     android:textColor="@color/white"
+                    android:textAlignment="center"
                     android:textSize="22sp" />
 
             </RelativeLayout>

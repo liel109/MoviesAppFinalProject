@@ -33,10 +33,9 @@
     <string name="edit_movie">Edit Movie</string>
     <string name="invalid_input_message">Please Enter All Required Fields</string>
     <string name="star">★</string>
-    <string name="empty_string"></string>
     <string name="tbd">TBD</string>
     <string name="year_example">2012</string>
-    <string name="no_connection">No Connection</string>
+    <string name="no_connection">Cannot connect to data server</string>
     <string name="search">Search</string>
     <string name="title">Title</string>
     <string name="genre">Genre</string>

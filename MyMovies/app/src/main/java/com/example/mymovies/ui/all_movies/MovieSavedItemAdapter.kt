@@ -38,9 +38,9 @@ class MovieSavedItemAdapter(private val listener : MovieItemListener, private va
         fun bind(item : MovieItem){
             movieItem = item
             itemBinding.movieTitle.text = item.title
-            itemBinding.movieTime.text = parseMovieLength(item.length)
-            itemBinding.stars.text = context.getString(R.string.star).repeat(calculateStars(item.rating))
-            Glide.with(itemBinding.root).load(getHeartPhoto(item.isFav)).override(itemBinding.heart.width, itemBinding.heart.height)
+            itemBinding.movieTime.text = Utils.parseMovieLength(item.length, context)
+            itemBinding.stars.text = context.getString(R.string.star).repeat(Utils.calculateStars(item.rating))
+            Glide.with(itemBinding.root).load(Utils.getHeartPhoto(item.isFav)).override(itemBinding.heart.width, itemBinding.heart.height)
             .into(itemBinding.heart)
             setPosterUri(item.photo)
         }
@@ -75,21 +75,6 @@ class MovieSavedItemAdapter(private val listener : MovieItemListener, private va
                 listener.onMovieItemClick(movieItem.id, location,true)
             }
             return true
-        }
-
-        private fun parseMovieLength(length : Int) : String{
-            return "${length/60}${context.getString(R.string.length_hours)} ${length%60}${context.getString(R.string.length_minutes)}"
-        }
-
-        private fun calculateStars(rating : Double) : Int{
-            return (rating / 2 + 1).toInt()
-        }
-
-        private fun getHeartPhoto(isFavorite : Boolean) : Int{
-            if(isFavorite){
-                return R.drawable.ic_full_heart
-            }
-            return R.drawable.ic_empty_heart
         }
     }
 

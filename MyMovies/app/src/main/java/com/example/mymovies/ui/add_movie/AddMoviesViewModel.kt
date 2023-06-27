@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddMoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel(){
-    lateinit var requestedGenre : String
     var searchByParam = eSearchBy.Title
+
     private val _keyword = MutableLiveData<String>()
     private val _moviesList = _keyword.switchMap {
         if(it == ""){
@@ -32,17 +32,19 @@ class AddMoviesViewModel @Inject constructor(private val moviesRepository: Movie
         }
     }
     val moviesList : LiveData<Resource<MoviesList>> = _moviesList
-    lateinit var genresDict : LiveData<Resource<GenreList>>
-    var fetchedGenres = false
 
-    fun updateGenresList(){
-        genresDict = moviesRepository.getGenresDict()
-    }
+    var fetchedGenres = false
+    private val _genreString = MutableLiveData<String>()
+    private val _genresDict = _genreString.switchMap{ moviesRepository.getGenresDict() }
+    val genresDict : LiveData<Resource<GenreList>> = _genresDict
+
     fun setKeyword(name : String){
         _keyword.value = name
     }
 
+    fun setGenreString(value : String){
+        _genreString.value = value
+    }
+
     fun addItem(movieId : Int) : LiveData<Resource<MovieItem>> = moviesRepository.addMovie(movieId)
-
-
 }

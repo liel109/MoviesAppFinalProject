@@ -18,9 +18,11 @@ import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
 import com.example.mymovies.utils.Success
+import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import com.example.mymovies.utils.eSearchBy
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.Util
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -60,7 +62,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
             }
             setNewMoviesList(binding.searchInput.text.toString())
         }
-        viewModel.updateGenresList()
+        viewModel.setGenreString("")
         return binding.root
     }
 
@@ -80,7 +82,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                 }
                 is Error -> {
                     showProgressBar()
-                    Toast.makeText(requireContext(), requireContext().getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
+                    Utils.showNoConnectionToast(requireContext())
                 }
             }
         }
@@ -101,7 +103,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                         }
                     }
                     is Error -> {
-                        println("error - ${it.status.message}")
+                        Utils.showNoConnectionToast(requireContext())
                     }
                 }
             }
@@ -122,32 +124,33 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                 }
 
                 is Error -> {
-                    raiseNoConnectionToast()
+                    Utils.showNoConnectionToast(requireContext())
                 }
             }
         }
     }
 
-    private fun raiseNoConnectionToast(){
-        Toast.makeText(context, "No Connection", Toast.LENGTH_SHORT).show()
-    }
     private fun setNewMoviesList(query : String) {
         var mutableQuery = query.lowercase(Locale.ROOT)
         var validQuery = true
 
-        if(binding.genreRadio.isChecked && mutableQuery != ""){
-            if(Constants.STRING_TO_ID_GENRES.containsKey(mutableQuery)){
-                mutableQuery = Constants.STRING_TO_ID_GENRES[mutableQuery].toString()
+        if(viewModel.fetchedGenres) {
+            if (binding.genreRadio.isChecked && mutableQuery != "") {
+                if (Constants.STRING_TO_ID_GENRES.containsKey(mutableQuery)) {
+                    mutableQuery = Constants.STRING_TO_ID_GENRES[mutableQuery].toString()
+                } else {
+                    showNoResults()
+                    validQuery = false
+                }
             }
-            else{
-                showNoResults()
-                validQuery = false
+
+            if (validQuery) {
+                showItems()
+                viewModel.setKeyword(mutableQuery)
             }
         }
-
-        if(validQuery){
-            showItems()
-            viewModel.setKeyword(mutableQuery)
+        else{
+            viewModel.setGenreString("")
         }
     }
 

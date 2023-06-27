@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
+import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.databinding.EditItemFragmentBinding
 import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
@@ -21,6 +25,9 @@ import com.example.mymovies.utils.Success
 import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.internal.Util
 
 @AndroidEntryPoint
 class EditItemFragment : Fragment() {
@@ -48,40 +55,47 @@ class EditItemFragment : Fragment() {
                 is Success -> {
                     showDetails()
                     if(it.status.data != null) {
-                        val movieItem = it.status.data
-                        binding.itemTitle.text = movieItem.title
-                        binding.itemDesc.text = movieItem.plot
-                        binding.itemLength.text = parseMovieLength(movieItem.length)
-                        binding.notesEditText.setText(movieItem.notes)
-                        binding.itemRating.text = requireContext().getString(R.string.star).repeat(calculateStars(movieItem.rating))
-                        binding.itemYear.text = parseReleaseDate(movieItem.year)
-                        setPosterUri(movieItem.photo)
-                        Glide.with(binding.root).load(getHeartPhoto(movieItem.isFav))
-                            .into(binding.heart)
-
-                        binding.doneBtn.setOnClickListener{
-                            if(viewModel.fetchedFromRemote){
-                                viewModel.updateMovieNotes(movieItem.id, binding.notesEditText.text.toString())
-                                findNavController().navigate(R.id.action_editItemFragment_to_allMoviesFragment)
-                            }
-                            else{
-                                Toast.makeText(context,"Can't update yet!",Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                        setDetailsInView(it.status.data)
                     }
                 }
-                is Error -> { println("inside error ${it.status.data}")
-                }
+                is Error -> { Utils.showNoConnectionToast(requireContext()) }
             }
         }
         arguments?.getInt("id")?.let {
             viewModel.setId(it)
         }
-
     }
 
-    private fun parseReleaseDate(releaseDate : String) : String{
-        return releaseDate.substring(0,4)
+    private fun setDetailsInView(movieItem : MovieItem){
+        binding.itemTitle.text = movieItem.title
+        binding.itemDesc.text = movieItem.plot
+        binding.itemLength.text = Utils.parseMovieLength(movieItem.length, requireContext())
+        binding.notesEditText.setText(movieItem.notes)
+        binding.itemRating.text = requireContext().getString(R.string.star).repeat(Utils.calculateStars(movieItem.rating))
+        binding.itemYear.text = Utils.parseReleaseDate(movieItem.year)
+        setPosterUri(movieItem.photo)
+        Glide.with(binding.root).load(Utils.getHeartPhoto(movieItem.isFav))
+            .into(binding.heart)
+
+        binding.doneBtn.setOnClickListener{
+            if(viewModel.fetchedFromRemote){
+                viewModel.updateMovieNotes(movieItem.id, binding.notesEditText.text.toString())
+                findNavController().navigate(R.id.action_editItemFragment_to_allMoviesFragment)
+            }
+            else{
+                Toast.makeText(context,"Can't update yet!",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.heart.setOnClickListener{
+            if(viewModel.fetchedFromRemote) {
+                Utils.changeHeart(it as ImageView, movieItem.isFav)
+                viewModel.setFavorite(movieItem.id, !movieItem.isFav)
+            }
+            else{
+                Toast.makeText(context,"Can't update yet!",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setPosterUri(uri : String?){
@@ -93,21 +107,6 @@ class EditItemFragment : Fragment() {
             Glide.with(binding.root).load(requireContext().getDrawable(R.drawable.no_image_placeholder))
                 .into(binding.itemImage)
         }
-    }
-
-    private fun parseMovieLength(length : Int) : String{
-        return "${length/60}${requireContext().getString(R.string.length_hours)} ${length%60}${requireContext().getString(R.string.length_minutes)}"
-    }
-
-    private fun calculateStars(rating : Double) : Int{
-        return (rating / 2 + 1).toInt()
-    }
-
-    private fun getHeartPhoto(isFavorite : Boolean) : Int{
-        if(isFavorite){
-            return R.drawable.ic_full_heart
-        }
-        return R.drawable.ic_empty_heart
     }
 
     private fun showDetails(){
@@ -125,20 +124,10 @@ class EditItemFragment : Fragment() {
         val pressedLocation = arguments?.getIntArray("location")
 
         val window = requireActivity().window
-        val centerX = resources.displayMetrics.widthPixels / 2
-        val centerY = resources.displayMetrics.heightPixels / 2
-        val translationX = pressedLocation!![0] - centerX
-        val translationY = pressedLocation!![1] - centerY
-        val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
-        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
-        val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.7f, 1f)
-        val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
-        val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
-
-        val animatorSet = AnimatorSet().apply {
-            playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)
-            duration = Constants.POP_ANIMATION_DURATION
+        val centerX = resources.displayMetrics.widthPixels
+        val centerY = resources.displayMetrics.heightPixels
+        if(pressedLocation != null){
+            Utils.scaleInAnimation(window, pressedLocation, intArrayOf(centerX,centerY))
         }
-        animatorSet.start()
     }
 }

@@ -34,7 +34,7 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
                 parseGenres(movieItem.genres, genreRequested)
             }
             else{
-                context.getString(R.string.empty_string)
+                ""
             }
             itemBinding.releaseDate.text = if(movieItem.releaseDate.isNotEmpty()) {
                 parseReleaseDate(movieItem.releaseDate)

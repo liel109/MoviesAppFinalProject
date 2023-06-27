@@ -34,13 +34,12 @@
     <string name="edit_movie">ערוך סרט</string>
     <string name="invalid_input_message">אנא מלא את כל הפרטים הדרושים</string>
     <string name="star">★</string>
-    <string name="empty_string"></string>
     <string name="tbd">לא ידוע</string>
     <string name="year_example">2012</string>
-    <string name="no_connection">אין חיבור לאינטרנט</string>
-    <string name="search">חפש</string>
-    <string name="title">כותרת</string>
+    <string name="no_connection">אין חיבור לשרת מידע</string>
+    <string name="search">חיפוש</string>
+    <string name="title">שם סרט</string>
     <string name="genre">ז\'ָאנר</string>
-    <string name="note_hint">תוסיף הערה…</string>
+    <string name="note_hint">הוסף הערה…</string>
     <string name="done">סיום</string>
 </resources>

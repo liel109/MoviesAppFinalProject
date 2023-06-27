@@ -2,8 +2,11 @@ package com.example.mymovies.utils
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
 
@@ -58,6 +61,47 @@ class Utils {
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(scaleX, scaleY, alpha)
             animatorSet.start()
+        }
+
+        fun scaleInAnimation(window: Window, pressedLocation : IntArray, displaySize : IntArray){
+            val centerX = displaySize[0] / 2
+            val centerY = displaySize[1] / 2
+            val translationX = pressedLocation!![0] - centerX
+            val translationY = pressedLocation!![1] - centerY
+            val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
+            val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
+            val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.7f, 1f)
+            val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
+            val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
+
+            val animatorSet = AnimatorSet().apply {
+                playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)
+                duration = Constants.POP_ANIMATION_DURATION
+            }
+            animatorSet.start()
+        }
+
+        fun parseMovieLength(length : Int, context : Context) : String{
+            return "${length/60}${context.getString(R.string.length_hours)} ${length%60}${context.getString(R.string.length_minutes)}"
+        }
+
+        fun calculateStars(rating : Double) : Int{
+            return (rating / 2 + 1).toInt()
+        }
+
+        fun getHeartPhoto(isFavorite : Boolean) : Int{
+            if(isFavorite){
+                return R.drawable.ic_full_heart
+            }
+            return R.drawable.ic_empty_heart
+        }
+
+        fun parseReleaseDate(releaseDate : String) : String{
+            return releaseDate.substring(0,4)
+        }
+
+        fun showNoConnectionToast(context: Context){
+            Toast.makeText(context, context.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
     }
 }

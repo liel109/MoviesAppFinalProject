@@ -26,6 +26,7 @@ import com.example.mymovies.databinding.AllMoviesFragmentBinding
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
 import com.example.mymovies.utils.Success
+import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,16 +51,18 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
         }
 
         binding.clearButton.setOnClickListener{
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(getString(R.string.confirmation))
-            builder.setMessage(getString(R.string.delete_all_confirmation_dialog))
+            if(adapter.itemCount != 0) {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle(getString(R.string.confirmation))
+                builder.setMessage(getString(R.string.delete_all_confirmation_dialog))
 
-            builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-                viewModel.deleteAllMovies()
+                builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    viewModel.deleteAllMovies()
+                }
+                builder.setNegativeButton(getString(R.string.no), null)
+
+                builder.create().show()
             }
-            builder.setNegativeButton(getString(R.string.no),null)
-
-            builder.create().show()
         }
         return binding.root
     }
@@ -78,18 +81,19 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
         viewModel.savedMovies.observe(viewLifecycleOwner){
             if(it!=null){
                 when(it.status){
-                    is Loading -> {}
+                    is Loading -> { binding.progressBar.visibility = View.VISIBLE }
                     is Success -> {
                         if(it.status.data != null) {
                             adapter.setMovies(it.status.data)
                             if(updateRequired) {
                                 viewModel.updateMovies(it.status.data)
                                 updateRequired = false
+                                binding.progressBar.visibility = View.GONE
                             }
                         }
                     }
                     is Error -> {
-                        println("error - ${it.status.message}")
+                        Utils.showNoConnectionToast(requireContext())
                     }
                 }
             }

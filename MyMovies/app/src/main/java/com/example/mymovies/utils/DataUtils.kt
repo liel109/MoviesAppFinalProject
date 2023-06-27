@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
+import com.example.mymovies.data.models.MovieItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.concurrent.thread
@@ -46,6 +47,5 @@ class DataUtils {
                     emitSource(source)
                 }
             }
-
     }
 }

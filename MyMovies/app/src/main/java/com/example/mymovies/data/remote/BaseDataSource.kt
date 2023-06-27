@@ -18,7 +18,6 @@ abstract class BaseDataSource {
             return Resource.error("Failed Fetching Data - ${result.message()} ${result.code()}")
         }
         catch (e: Exception){
-            Log.d("Inside Catch", "${e.localizedMessage}")
             return Resource.error("Failed Fetching Data - ${e.localizedMessage ?: e.toString()}")
         }
     }

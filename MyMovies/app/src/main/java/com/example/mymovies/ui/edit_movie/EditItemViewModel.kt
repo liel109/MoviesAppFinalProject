@@ -32,17 +32,21 @@ class EditItemViewModel @Inject constructor(val moviesRepository: MoviesReposito
 
     private fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
         liveData(Dispatchers.IO) {
+            emit(Resource.loading())
+
             val source = moviesRepository.getMovieFromLocalDB(movieId)
             if(source != null) {
                 emit(Resource.success(source))
             }
             else{
-                emit(Resource.error(source))
+                emit(Resource.error("Cant fetch from local DB",source))
             }
 
             val newMovieItem = moviesRepository.getMovieFromAPI(movieId)
             fetchedFromRemote = true
             if(newMovieItem.status is Success){
+                emit(newMovieItem)
+
                 newMovieItem.status.data!!.isFav = source.isFav
                 newMovieItem.status.data.notes = source.notes
 

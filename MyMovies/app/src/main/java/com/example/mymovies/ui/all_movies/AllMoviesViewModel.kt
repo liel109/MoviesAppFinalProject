@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AllMoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
+class AllMoviesViewModel @Inject constructor(val moviesRepository: MoviesRepository) : ViewModel() {
     val savedMovies = moviesRepository.getAllMovies()
 
     fun deleteAllMovies() {

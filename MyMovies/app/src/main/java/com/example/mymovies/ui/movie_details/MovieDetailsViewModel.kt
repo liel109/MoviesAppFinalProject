@@ -4,21 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
 import com.example.mymovies.utils.Resource
 import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.data.repos.MoviesRepository
-import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailsViewModel @Inject constructor(val moviesRepository: MoviesRepository) : ViewModel() {
+class MovieDetailsViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
     private val _id = MutableLiveData<Int>()
 
     private val _movieItem = _id.switchMap {
@@ -31,19 +27,21 @@ class MovieDetailsViewModel @Inject constructor(val moviesRepository: MoviesRepo
         _id.value = id
     }
 
-    fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
+    private fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
         liveData(Dispatchers.IO) {
             val source = moviesRepository.getMovieFromLocalDB(movieId)
-            if(source != null) {
+            if(source.title != "") {
                 emit(Resource.success(source))
             }
             else{
-                emit(Resource.error(source))
+                emit(Resource.error("Cannot fetch from local DB",source))
             }
 
             val newMovieItem = moviesRepository.getMovieFromAPI(movieId)
 
             if(newMovieItem.status is Success){
+                emit(newMovieItem)
+
                 newMovieItem.status.data!!.isFav = source.isFav
                 newMovieItem.status.data.notes = source.notes
 

@@ -17,9 +17,7 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
     private val _id = MutableLiveData<Int>()
 
-    private val _movieItem = _id.switchMap {
-        updateMovieDetails(it)
-    }
+    private val _movieItem = _id.switchMap { updateMovieDetails(it) }
 
     val movieItem : LiveData<Resource<MovieItem>> = _movieItem
 
@@ -29,23 +27,19 @@ class MovieDetailsViewModel @Inject constructor(private val moviesRepository: Mo
 
     private fun updateMovieDetails(movieId : Int) : LiveData<Resource<MovieItem>> =
         liveData(Dispatchers.IO) {
+            emit(Resource.loading())
+
             val source = moviesRepository.getMovieFromLocalDB(movieId)
-            if(source.title != "") {
-                emit(Resource.success(source))
-            }
-            else{
-                emit(Resource.error("Cannot fetch from local DB",source))
-            }
+            emit(Resource.success(source))
 
             val newMovieItem = moviesRepository.getMovieFromAPI(movieId)
-
             if(newMovieItem.status is Success){
-                emit(newMovieItem)
 
                 newMovieItem.status.data!!.isFav = source.isFav
                 newMovieItem.status.data.notes = source.notes
 
                 moviesRepository.insertMovie(newMovieItem.status.data)
+                emit(newMovieItem)
             }
         }
 }

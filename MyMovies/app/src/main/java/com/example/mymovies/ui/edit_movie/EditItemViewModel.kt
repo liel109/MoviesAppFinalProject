@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditItemViewModel @Inject constructor(val moviesRepository: MoviesRepository) : ViewModel() {
+class EditItemViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
     var fetchedFromRemote = false
     private val _id = MutableLiveData<Int>()
 
@@ -35,20 +35,15 @@ class EditItemViewModel @Inject constructor(val moviesRepository: MoviesReposito
             emit(Resource.loading())
 
             val source = moviesRepository.getMovieFromLocalDB(movieId)
-            if(source != null) {
-                emit(Resource.success(source))
-            }
-            else{
-                emit(Resource.error("Cant fetch from local DB",source))
-            }
+            emit(Resource.success(source))
 
             val newMovieItem = moviesRepository.getMovieFromAPI(movieId)
             fetchedFromRemote = true
             if(newMovieItem.status is Success){
-                emit(newMovieItem)
-
                 newMovieItem.status.data!!.isFav = source.isFav
                 newMovieItem.status.data.notes = source.notes
+
+                emit(newMovieItem)
 
                 moviesRepository.insertMovie(newMovieItem.status.data)
             }
@@ -58,11 +53,5 @@ class EditItemViewModel @Inject constructor(val moviesRepository: MoviesReposito
          viewModelScope.launch{
              moviesRepository.updateMovieNotes(movieId, newNote)
          }
-    }
-
-    fun setFavorite(movieId : Int, newStatus : Boolean){
-        viewModelScope.launch(Dispatchers.IO) {
-            moviesRepository.updateMovieFavoriteStatus(movieId, newStatus)
-        }
     }
 }

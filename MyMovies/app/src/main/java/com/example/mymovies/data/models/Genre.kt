@@ -6,5 +6,4 @@ data class Genre (
     @Expose
     val id : Int,
     @Expose
-    val name : String) {
-}
+    val name : String)

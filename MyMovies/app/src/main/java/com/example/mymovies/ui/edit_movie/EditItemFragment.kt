@@ -86,16 +86,6 @@ class EditItemFragment : Fragment() {
                 Toast.makeText(context,"Can't update yet!",Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.heart.setOnClickListener{
-            if(viewModel.fetchedFromRemote) {
-                Utils.changeHeart(it as ImageView, movieItem.isFav)
-                viewModel.setFavorite(movieItem.id, !movieItem.isFav)
-            }
-            else{
-                Toast.makeText(context,"Can't update yet!",Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun setPosterUri(uri : String?){

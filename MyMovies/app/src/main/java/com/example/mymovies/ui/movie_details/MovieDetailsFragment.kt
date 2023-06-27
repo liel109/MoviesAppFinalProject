@@ -118,20 +118,23 @@ class MovieDetailsFragment : DialogFragment() {
         val pressedLocation = arguments?.getIntArray("location")
 
         val window = dialog?.window
+        val layoutParams = window?.attributes
+        layoutParams?.width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+        layoutParams?.height = (resources.displayMetrics.heightPixels * 0.85).toInt()
         window?.setBackgroundDrawableResource(R.color.transparent)
         val centerX = resources.displayMetrics.widthPixels / 2
         val centerY = resources.displayMetrics.heightPixels / 2
         val translationX = pressedLocation!![0] - centerX
         val translationY = pressedLocation!![1] - centerY
         val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
-        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat()-40, 0f)
+        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
         val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.54f, 1f)
         val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
         val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
 
         val animatorSet = AnimatorSet().apply {
             playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)
-            duration = 400L
+            duration = Constants.POP_ANIMATION_DURATION
         }
         animatorSet.start()
     }

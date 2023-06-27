@@ -8,8 +8,4 @@ data class MoviesList (
     @SerializedName("results")
     @Expose
     val moviesList: ArrayList<MovieSearchItem>) {
-
-    fun addMovies(movies : Collection<MovieSearchItem>){
-        moviesList.addAll(movies)
-    }
 }

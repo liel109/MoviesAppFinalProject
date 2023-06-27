@@ -7,4 +7,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="gold">#D1B000</color>
     <color name="text_gray_background">#59000000</color>
+    <color name="background_gray_no_alpha">#E9E9E9</color>
+    <color name="border">#34000000</color>
 </resources>

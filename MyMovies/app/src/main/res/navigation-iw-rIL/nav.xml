@@ -2,55 +2,55 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav"
-    app:startDestination="@id/allMoviesFragment2">
+    android:id="@+id/nav.xml"
+    app:startDestination="@id/allMoviesFragment">
 
     <fragment
-        android:id="@+id/allMoviesFragment2"
+        android:id="@+id/allMoviesFragment"
         android:name="com.example.mymovies.ui.all_movies.AllMoviesFragment"
         android:label="all_movies_fragment"
         tools:layout="@layout/all_movies_fragment" >
         <action
-            android:id="@+id/action_allMoviesFragment2_to_addMovieFragment2"
-            app:destination="@id/addMovieFragment2"
+            android:id="@+id/action_allMoviesFragment_to_addMovieFragment"
+            app:destination="@id/addMovieFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left" />
         <action
-            android:id="@+id/action_allMoviesFragment2_to_movieDetailsFragment2"
-            app:destination="@id/movieDetailsFragment2" />
+            android:id="@+id/action_allMoviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
         <action
-            android:id="@+id/action_allMoviesFragment2_to_editItemFragment2"
-            app:destination="@id/editItemFragment2" />
+            android:id="@+id/action_allMoviesFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addMovieFragment2"
+        android:id="@+id/addMovieFragment"
         android:name="com.example.mymovies.ui.add_movie.AddMovieFragment"
         android:label="add_movie_fragment"
         tools:layout="@layout/add_movie_fragment" >
         <action
-            android:id="@+id/action_addMovieFragment2_to_allMoviesFragment2"
-            app:destination="@id/allMoviesFragment2"
+            android:id="@+id/action_addMovieFragment_to_allMoviesFragment"
+            app:destination="@id/allMoviesFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/nav" />
+            app:popUpTo="@id/nav.xml" />
     </fragment>
     <dialog
-        android:id="@+id/editItemFragment2"
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.mymovies.ui.movie_details.MovieDetailsFragment"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/movie_details_fragment" />
+    <fragment
+        android:id="@+id/editItemFragment"
         android:name="com.example.mymovies.ui.edit_movie.EditItemFragment"
         android:label="edit_item_fragment"
         tools:layout="@layout/edit_item_fragment" >
         <action
-            android:id="@+id/action_editItemFragment2_to_allMoviesFragment2"
-            app:destination="@id/allMoviesFragment2"
-            app:popUpTo="@id/nav" />
-    </dialog>
-    <dialog
-        android:id="@+id/movieDetailsFragment2"
-        android:name="com.example.mymovies.ui.movie_details.MovieDetailsFragment"
-        android:label="movie_details_fragment"
-        tools:layout="@layout/movie_details_fragment" />
+            android:id="@+id/action_editItemFragment_to_allMoviesFragment"
+            app:destination="@id/allMoviesFragment"
+            app:popUpTo="@id/nav.xml"/>
+    </fragment>
 </navigation>

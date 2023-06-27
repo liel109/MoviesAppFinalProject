@@ -2,10 +2,16 @@ package com.example.mymovies.ui.all_movies
 
 import android.app.AlertDialog
 import android.content.res.Configuration
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.example.mymovies.R
 import com.example.mymovies.databinding.AllMoviesFragmentBinding
 import com.example.mymovies.utils.Error
@@ -28,6 +35,7 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
     private var binding: AllMoviesFragmentBinding by autoCleared()
     private val viewModel : AllMoviesViewModel by viewModels()
     private lateinit var adapter: MovieSavedItemAdapter
+    private var updateRequired = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +44,7 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
     ): View? {
         binding = AllMoviesFragmentBinding.inflate(inflater, container, false)
 
+        updateRequired = true
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_allMoviesFragment_to_addMovieFragment)
         }
@@ -52,11 +61,6 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
 
             builder.create().show()
         }
-
-//        viewModel.moviesRepository.getAllMovies().observe(viewLifecycleOwner){
-//            println(it.status.data)
-//        }
-
         return binding.root
     }
 
@@ -78,6 +82,10 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
                     is Success -> {
                         if(it.status.data != null) {
                             adapter.setMovies(it.status.data)
+                            if(updateRequired) {
+                                viewModel.updateMovies(it.status.data)
+                                updateRequired = false
+                            }
                         }
                     }
                     is Error -> {
@@ -105,6 +113,7 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(getString(R.string.confirmation))
                 builder.setMessage(getString(R.string.delete_confirmation_dialog))
+                builder.setCancelable(false)
 
                 builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
                     viewModel.deleteMovie(adapter.itemAt(viewHolder.adapterPosition))
@@ -117,6 +126,8 @@ class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {
                 builder.create().show()
             }
         }).attachToRecyclerView(binding.recycleView)
+
+        binding.recycleView.overScrollMode = RecyclerView.OVER_SCROLL_IF_CONTENT_SCROLLS
     }
 
     override fun onMovieItemClick(movieId: Int, location : IntArray, longClick : Boolean) {

@@ -11,14 +11,6 @@ import kotlin.concurrent.thread
 class DataUtils {
 
     companion object {
-
-//        fun <T> fetchData(remoteDbFetch: suspend () -> Resource<T>): LiveData<Resource<T>> =
-//            liveData(Dispatchers.IO) {
-//                emit(Resource.loading())
-//                val source = remoteDbFetch()
-//                emit(source)
-//            }
-
         fun <T> fetchRemoteData(remoteDbFetch: suspend () -> Resource<T>): LiveData<Resource<T>> =
             liveData(Dispatchers.IO) {
                 emit(Resource.loading())
@@ -26,35 +18,34 @@ class DataUtils {
                 emit(source)
             }
 
-        fun<T> fetchLocalData(localDbFetch: () -> LiveData<T>) : LiveData<Resource<T>> =
+        fun <T> fetchLocalData(localDbFetch: () -> LiveData<T>): LiveData<Resource<T>> =
             liveData(Dispatchers.IO) {
-                val source = localDbFetch().map{Resource.success(it)}
+                val source = localDbFetch().map { Resource.success(it) }
                 emitSource(source)
             }
 
-        fun <T> fetchDataAndSave(localDbFetch: () -> LiveData<T>,
-                                 remoteDbFetch : suspend () -> Resource<T>,
-                                 localDbSave : suspend (T) -> Unit) : LiveData<Resource<T>> {
+        fun <T> fetchDataAndSave(
+            localDbFetch: () -> LiveData<T>,
+            remoteDbFetch: suspend () -> Resource<T>,
+            localDbSave: suspend (T) -> Unit
+        ): LiveData<Resource<T>> =
 
-            return liveData(Dispatchers.IO) {
+            liveData(Dispatchers.IO) {
 
                 emit(Resource.loading())
-
                 val source = localDbFetch().map { Resource.success(it) }
                 emitSource(source)
 
                 val fetchResource = remoteDbFetch()
 
-                if(fetchResource.status is Success){
+                if (fetchResource.status is Success) {
                     localDbSave(fetchResource.status.data!!)
-                    println(fetchResource.status.data!!)
                     emit(fetchResource)
-                }
-                else if(fetchResource.status is Error){
+                } else if (fetchResource.status is Error) {
                     emit(fetchResource)
                     emitSource(source)
                 }
             }
-        }
+
     }
 }

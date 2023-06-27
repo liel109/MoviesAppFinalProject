@@ -1,6 +1,7 @@
 package com.example.mymovies.data.models
 
 import com.google.gson.annotations.Expose
+import java.util.Locale
 
 data class GenreList(
     @Expose
@@ -10,7 +11,7 @@ data class GenreList(
     fun getDict() : Map<Int,String>{
         val genreDictionary = mutableMapOf<Int, String>()
         for(genre in genres){
-            genreDictionary[genre.id] = genre.name
+            genreDictionary[genre.id] = genre.name.lowercase(Locale.ROOT)
         }
         return  genreDictionary
     }

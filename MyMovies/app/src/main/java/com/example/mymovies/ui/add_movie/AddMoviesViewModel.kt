@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
+import com.example.mymovies.data.models.GenreList
 import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.data.models.MoviesList
 import com.example.mymovies.data.repos.MoviesRepository
@@ -31,9 +32,12 @@ class AddMoviesViewModel @Inject constructor(private val moviesRepository: Movie
         }
     }
     val moviesList : LiveData<Resource<MoviesList>> = _moviesList
-    val genresDict = moviesRepository.getGenresDict()
+    lateinit var genresDict : LiveData<Resource<GenreList>>
     var fetchedGenres = false
 
+    fun updateGenresList(){
+        genresDict = moviesRepository.getGenresDict()
+    }
     fun setKeyword(name : String){
         _keyword.value = name
     }

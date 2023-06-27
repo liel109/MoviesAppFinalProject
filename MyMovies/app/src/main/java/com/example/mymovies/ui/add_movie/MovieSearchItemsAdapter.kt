@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
@@ -13,7 +12,6 @@ import com.example.mymovies.data.models.MoviesList
 import com.example.mymovies.databinding.SearchItemLayoutBinding
 import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Utils
-import kotlinx.coroutines.internal.artificialFrame
 import java.lang.StringBuilder
 import java.util.Locale
 

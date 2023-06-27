@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
 import com.example.mymovies.databinding.EditItemFragmentBinding
+import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
 import com.example.mymovies.utils.Success
@@ -21,7 +23,7 @@ import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EditItemFragment : DialogFragment() {
+class EditItemFragment : Fragment() {
 
     private val viewModel : EditItemViewModel by viewModels()
     private var binding : EditItemFragmentBinding by autoCleared()
@@ -32,8 +34,6 @@ class EditItemFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = EditItemFragmentBinding.inflate(inflater, container, false)
-        binding.itemCard.minimumWidth = (resources.displayMetrics.widthPixels * 0.85).toInt()
-        binding.itemCard.minimumHeight = (resources.displayMetrics.heightPixels * 0.85).toInt()
 
         return binding.root
     }
@@ -124,21 +124,20 @@ class EditItemFragment : DialogFragment() {
         super.onStart()
         val pressedLocation = arguments?.getIntArray("location")
 
-        val window = dialog?.window
-        window?.setBackgroundDrawableResource(R.color.transparent)
+        val window = requireActivity().window
         val centerX = resources.displayMetrics.widthPixels / 2
         val centerY = resources.displayMetrics.heightPixels / 2
         val translationX = pressedLocation!![0] - centerX
         val translationY = pressedLocation!![1] - centerY
         val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
-        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat()-40, 0f)
-        val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.54f, 1f)
+        val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
+        val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.7f, 1f)
         val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
         val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
 
         val animatorSet = AnimatorSet().apply {
             playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)
-            duration = 400L
+            duration = Constants.POP_ANIMATION_DURATION
         }
         animatorSet.start()
     }

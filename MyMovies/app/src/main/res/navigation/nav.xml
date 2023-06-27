@@ -43,13 +43,14 @@
         android:name="com.example.mymovies.ui.movie_details.MovieDetailsFragment"
         android:label="movie_details_fragment"
         tools:layout="@layout/movie_details_fragment" />
-    <dialog
+    <fragment
         android:id="@+id/editItemFragment"
         android:name="com.example.mymovies.ui.edit_movie.EditItemFragment"
-        android:label="EditItemFragment" >
+        android:label="edit_item_fragment"
+        tools:layout="@layout/edit_item_fragment" >
         <action
             android:id="@+id/action_editItemFragment_to_allMoviesFragment"
             app:destination="@id/allMoviesFragment"
             app:popUpTo="@id/nav.xml" />
-    </dialog>
+    </fragment>
 </navigation>

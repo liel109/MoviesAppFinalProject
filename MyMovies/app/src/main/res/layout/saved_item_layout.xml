@@ -25,20 +25,19 @@
                     android:layout_height="150dp"
                     android:cropToPadding="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/background"
                     android:contentDescription="@string/movie_poster"/>
 
                 <TextView
+                    android:id="@+id/movie_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/backdrop"
-                    android:id="@+id/movie_title"
-                    android:paddingHorizontal="10dp"
                     android:layout_centerInParent="true"
                     android:background="@color/text_gray_background"
+                    android:paddingHorizontal="10dp"
                     android:text="@string/movie_title"
-                    android:textSize="22sp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
             </RelativeLayout>
 

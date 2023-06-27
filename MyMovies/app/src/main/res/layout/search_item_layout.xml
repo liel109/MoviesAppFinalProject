@@ -18,8 +18,7 @@
             android:layout_height="190dp"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            android:src="@drawable/no_image_placeholder"/>
+            android:adjustViewBounds="true"/>
 
         <Space
             android:layout_width="15dp"

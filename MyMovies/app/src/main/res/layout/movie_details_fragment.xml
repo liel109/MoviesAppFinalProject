@@ -30,8 +30,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
                         android:cropToPadding="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/background"/>
+                        android:scaleType="fitXY"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -42,17 +41,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:paddingHorizontal="45dp"
+                            android:paddingHorizontal="50dp"
                             android:text="@string/movie_title"
-                            android:textSize="25sp"
-                            android:textAlignment="center"/>
+                            android:textAlignment="center"
+                            android:textSize="25sp" />
 
                         <ImageView
                             android:id="@+id/heart"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="end"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="5dp"
                             android:src="@drawable/ic_empty_heart" />
                     </RelativeLayout>
                     <LinearLayout
@@ -147,6 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="20dp"
                         android:text="@string/movie_description_example"
                         android:textSize="20sp"/>
 

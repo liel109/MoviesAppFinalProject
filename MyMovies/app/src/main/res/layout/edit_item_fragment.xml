@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".ui.edit_movie.EditItemFragment"
-    android:id="@+id/item_card"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="15dp"
-    android:minHeight="600dp">
-
     <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:context=".ui.edit_movie.EditItemFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -34,8 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:cropToPadding="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/white_background_sample"/>
+                    android:scaleType="fitXY"/>
 
                 <Button
                     android:id="@+id/done_btn"
@@ -45,25 +36,30 @@
                     android:backgroundTint="@color/text_gray_background"
                     android:text="@string/done"
                     android:textSize="20dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <TextView
                     android:id="@+id/item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
                     android:paddingHorizontal="50dp"
                     android:text="@string/movie_title"
                     android:textAlignment="center"
                     android:textSize="25sp" />
 
-                    <ImageView
-                        android:id="@+id/heart"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_below="@id/item_image"
-                        android:layout_marginEnd="3dp"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_empty_heart" />
+                <ImageView
+                    android:id="@+id/heart"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_empty_heart" />
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,7 +152,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/MaterialAlertDialog.Material3.Body.Text.CenterStacked"
-                    android:layout_marginHorizontal="7dp">
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_marginBottom="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/notes_edit_text"
@@ -178,5 +175,3 @@
             android:layout_centerInParent="true" />
 
     </RelativeLayout>
-
-</androidx.cardview.widget.CardView>

@@ -18,7 +18,7 @@ import com.example.mymovies.utils.Utils
 class MovieSavedItemAdapter(private val listener : MovieItemListener, private val context: Context) :
     RecyclerView.Adapter<MovieSavedItemAdapter.MovieItemViewHolder>() {
 
-    private var movies = ArrayList<MovieItem>()
+    var movies = ArrayList<MovieItem>()
 
     inner class MovieItemViewHolder(private val itemBinding : SavedItemLayoutBinding,
                               private val listener : MovieItemListener)

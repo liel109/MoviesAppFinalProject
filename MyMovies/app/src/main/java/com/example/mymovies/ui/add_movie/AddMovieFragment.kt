@@ -21,6 +21,7 @@ import com.example.mymovies.utils.Success
 import com.example.mymovies.utils.autoCleared
 import com.example.mymovies.utils.eSearchBy
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemListener{
@@ -59,6 +60,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
             }
             setNewMoviesList(binding.searchInput.text.toString())
         }
+        viewModel.updateGenresList()
         return binding.root
     }
 
@@ -120,8 +122,6 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                 }
 
                 is Error -> {
-                    Log.d("Error", "Inside Error")
-                    showItems()
                     raiseNoConnectionToast()
                 }
             }
@@ -132,10 +132,10 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
         Toast.makeText(context, "No Connection", Toast.LENGTH_SHORT).show()
     }
     private fun setNewMoviesList(query : String) {
-        var mutableQuery = query
+        var mutableQuery = query.lowercase(Locale.ROOT)
         var validQuery = true
 
-        if(binding.genreRadio.isChecked){
+        if(binding.genreRadio.isChecked && mutableQuery != ""){
             if(Constants.STRING_TO_ID_GENRES.containsKey(mutableQuery)){
                 mutableQuery = Constants.STRING_TO_ID_GENRES[mutableQuery].toString()
             }

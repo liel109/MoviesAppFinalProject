@@ -11,7 +11,7 @@
     <string name="pick_image">בחר תמונה</string>
     <string name="confirmation">אישור</string>
     <string name="delete_all_confirmation_dialog">האם אתה בטוח שברצונך למחוק את כל הסרטים?</string>
-    <string name="delete_confirmation_dialog">האם אתה בטוח שברצונך סרט זה?</string>
+    <string name="delete_confirmation_dialog">האם אתה בטוח שברצונך למחוק סרט זה?</string>
     <string name="yes">כן</string>
     <string name="no">לא</string>
     <string name="add_item">הוסף</string>

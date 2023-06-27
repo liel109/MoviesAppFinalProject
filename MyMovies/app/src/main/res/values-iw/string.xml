@@ -21,7 +21,7 @@
     <string name="length_minutes">ד\'</string>
     <string name="rate_star_description">דירוג</string>
     <string name="select_image_preview">בחירת תמונה</string>
-    <string name="seperator">|</string>
+    <string name="separator">|</string>
     <string name="stars_example">★★★★★</string>
     <string name="movie_length_example">123ד</string>
     <string name="movie_description_example">תיאור עלילת הסרט</string>
@@ -36,10 +36,11 @@
     <string name="star">★</string>
     <string name="tbd">לא ידוע</string>
     <string name="year_example">2012</string>
-    <string name="no_connection">אין חיבור לשרת מידע</string>
+    <string name="no_connection">אין חיבור לשרת</string>
     <string name="search">חיפוש</string>
     <string name="title">שם סרט</string>
     <string name="genre">ז\'ָאנר</string>
     <string name="note_hint">הוסף הערה…</string>
     <string name="done">סיום</string>
+    <string name="no_results">אין תוצאות</string>
 </resources>

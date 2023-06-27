@@ -7,7 +7,6 @@ import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.example.mymovies.R
 
 class Utils {
@@ -66,13 +65,13 @@ class Utils {
         fun scaleInAnimation(window: Window, pressedLocation : IntArray, displaySize : IntArray){
             val centerX = displaySize[0] / 2
             val centerY = displaySize[1] / 2
-            val translationX = pressedLocation!![0] - centerX
-            val translationY = pressedLocation!![1] - centerY
-            val translateAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "translationX", translationX.toFloat() ,0f)
-            val translateAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "translationY", translationY.toFloat(), 0f)
-            val scaleAnimatorX = ObjectAnimator.ofFloat(window?.decorView, "scaleX", 0.7f, 1f)
-            val scaleAnimatorY = ObjectAnimator.ofFloat(window?.decorView, "scaleY", 0.3f, 1f)
-            val alphaAnimator = ObjectAnimator.ofFloat(window?.decorView, "alpha", 1f, 1f)
+            val translationX = pressedLocation[0] - centerX
+            val translationY = pressedLocation[1] - centerY
+            val translateAnimatorX = ObjectAnimator.ofFloat(window.decorView, "translationX", translationX.toFloat() ,0f)
+            val translateAnimatorY = ObjectAnimator.ofFloat(window.decorView, "translationY", translationY.toFloat(), 0f)
+            val scaleAnimatorX = ObjectAnimator.ofFloat(window.decorView, "scaleX", 0.95f, 1f)
+            val scaleAnimatorY = ObjectAnimator.ofFloat(window.decorView, "scaleY", 0.2f, 1f)
+            val alphaAnimator = ObjectAnimator.ofFloat(window.decorView, "alpha", 1f, 1f)
 
             val animatorSet = AnimatorSet().apply {
                 playTogether(translateAnimatorX, translateAnimatorY, scaleAnimatorX, scaleAnimatorY, alphaAnimator)

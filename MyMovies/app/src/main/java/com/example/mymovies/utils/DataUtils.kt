@@ -1,13 +1,9 @@
 package com.example.mymovies.utils
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.example.mymovies.data.models.MovieItem
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlin.concurrent.thread
 
 class DataUtils {
 
@@ -43,6 +39,7 @@ class DataUtils {
                     localDbSave(fetchResource.status.data!!)
                     emit(fetchResource)
                 } else if (fetchResource.status is Error) {
+                    println("Error")
                     emit(fetchResource)
                     emitSource(source)
                 }

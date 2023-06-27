@@ -1,29 +1,22 @@
 package com.example.mymovies.ui.movie_details
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
 import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.databinding.MovieDetailsFragmentBinding
-import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
 import com.example.mymovies.utils.Success
 import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.StringBuilder
-import java.util.Locale
 
 @AndroidEntryPoint
 class MovieDetailsFragment : DialogFragment() {
@@ -70,7 +63,7 @@ class MovieDetailsFragment : DialogFragment() {
                 .into(binding.itemImage)
         }
         else{
-            Glide.with(binding.root).load(requireContext().getDrawable(R.drawable.no_image_placeholder))
+            Glide.with(binding.root).load(AppCompatResources.getDrawable(requireContext(),R.drawable.no_image_placeholder))
                 .into(binding.itemImage)
         }
     }

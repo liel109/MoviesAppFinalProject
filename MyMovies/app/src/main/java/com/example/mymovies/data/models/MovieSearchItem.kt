@@ -21,5 +21,4 @@ data class MovieSearchItem (
     @SerializedName("poster_path")
     @Expose
     val poster : String?
-){
-}
+)

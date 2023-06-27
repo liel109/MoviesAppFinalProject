@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.util.function.DoubleBinaryOperator
 
 @Entity(tableName = "movies")
 data class MovieItem(
@@ -48,5 +47,3 @@ data class MovieItem(
 
     @ColumnInfo(name = "favorite")
     var isFav : Boolean = false)
-{
-}

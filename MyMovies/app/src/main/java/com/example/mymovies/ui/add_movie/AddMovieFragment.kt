@@ -3,11 +3,9 @@ package com.example.mymovies.ui.add_movie
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,7 +20,6 @@ import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import com.example.mymovies.utils.eSearchBy
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.Util
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -110,7 +107,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
         }
     }
 
-    override fun OnMovieClick(movieId: Int) {
+    override fun onMovieClick(movieId: Int) {
         viewModel.addItem(movieId).observe(viewLifecycleOwner) {
             when (it.status) {
                 is Loading -> {
@@ -124,6 +121,7 @@ class AddMovieFragment : Fragment(), MovieSearchItemsAdapter.MovieSearchItemList
                 }
 
                 is Error -> {
+                    println("here comes the toast")
                     Utils.showNoConnectionToast(requireContext())
                 }
             }

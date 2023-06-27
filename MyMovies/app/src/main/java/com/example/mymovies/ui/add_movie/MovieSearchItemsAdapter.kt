@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
@@ -17,7 +18,7 @@ import java.util.Locale
 
 class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, private val context: Context)  : RecyclerView.Adapter<MovieSearchItemsAdapter.MoviesViewHolder>(){
 
-    private var movies = MoviesList(ArrayList<MovieSearchItem>())
+    private var movies = MoviesList(ArrayList())
 
     inner class MoviesViewHolder(private val itemBinding : SearchItemLayoutBinding,
         private val listener: MovieSearchItemListener) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
@@ -47,7 +48,7 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
 
         override fun onClick(v: View?) {
             Utils.pressedAnimation(v!!)
-            listener.OnMovieClick(movieItem.id)
+            listener.onMovieClick(movieItem.id)
         }
 
         private fun setPosterUri(uri : String?){
@@ -56,7 +57,7 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
                     .into(itemBinding.poster)
             }
             else{
-                Glide.with(itemBinding.root).load(context.getDrawable(R.drawable.no_image_placeholder))
+                Glide.with(itemBinding.root).load(AppCompatResources.getDrawable(context, R.drawable.no_image_placeholder))
                     .into(itemBinding.poster)
             }
         }
@@ -113,6 +114,6 @@ class MovieSearchItemsAdapter(private val listener : MovieSearchItemListener, pr
     }
 
     interface MovieSearchItemListener{
-        fun OnMovieClick(movieId : Int)
+        fun onMovieClick(movieId : Int)
     }
 }

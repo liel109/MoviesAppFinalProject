@@ -2,17 +2,10 @@ package com.example.mymovies.ui.all_movies
 
 import android.app.AlertDialog
 import android.content.res.Configuration
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.constraintlayout.utils.widget.MockView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,9 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.example.mymovies.R
-import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.databinding.AllMoviesFragmentBinding
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
@@ -31,9 +22,6 @@ import com.example.mymovies.utils.Success
 import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AllMoviesFragment : Fragment(), MovieSavedItemAdapter.MovieItemListener {

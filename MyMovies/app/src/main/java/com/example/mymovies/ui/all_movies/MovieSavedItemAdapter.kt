@@ -5,20 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
 import com.example.mymovies.data.models.MovieItem
-import com.example.mymovies.data.models.MovieSearchItem
-import com.example.mymovies.data.models.MoviesList
 import com.example.mymovies.databinding.SavedItemLayoutBinding
-import com.example.mymovies.databinding.SearchItemLayoutBinding
 import com.example.mymovies.utils.Utils
 
 class MovieSavedItemAdapter(private val listener : MovieItemListener, private val context: Context) :
     RecyclerView.Adapter<MovieSavedItemAdapter.MovieItemViewHolder>() {
 
-    var movies = ArrayList<MovieItem>()
+    private var movies = ArrayList<MovieItem>()
 
     inner class MovieItemViewHolder(private val itemBinding : SavedItemLayoutBinding,
                               private val listener : MovieItemListener)
@@ -51,7 +49,7 @@ class MovieSavedItemAdapter(private val listener : MovieItemListener, private va
                     .into(itemBinding.backdrop)
             }
             else{
-                Glide.with(itemBinding.root).load(context.getDrawable(R.drawable.no_image_placeholder))
+                Glide.with(itemBinding.root).load(AppCompatResources.getDrawable(context, R.drawable.no_image_placeholder))
                     .into(itemBinding.backdrop)
             }
         }

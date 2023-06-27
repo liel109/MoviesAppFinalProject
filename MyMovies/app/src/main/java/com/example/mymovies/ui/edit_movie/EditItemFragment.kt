@@ -1,33 +1,24 @@
 package com.example.mymovies.ui.edit_movie
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mymovies.R
 import com.example.mymovies.data.models.MovieItem
 import com.example.mymovies.databinding.EditItemFragmentBinding
-import com.example.mymovies.utils.Constants
 import com.example.mymovies.utils.Error
 import com.example.mymovies.utils.Loading
 import com.example.mymovies.utils.Success
 import com.example.mymovies.utils.Utils
 import com.example.mymovies.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.internal.Util
 
 @AndroidEntryPoint
 class EditItemFragment : Fragment() {
@@ -94,7 +85,7 @@ class EditItemFragment : Fragment() {
                 .into(binding.itemImage)
         }
         else{
-            Glide.with(binding.root).load(requireContext().getDrawable(R.drawable.no_image_placeholder))
+            Glide.with(binding.root).load(AppCompatResources.getDrawable(requireContext(),R.drawable.no_image_placeholder))
                 .into(binding.itemImage)
         }
     }

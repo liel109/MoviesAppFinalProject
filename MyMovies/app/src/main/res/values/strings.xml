@@ -20,7 +20,7 @@
     <string name="length_minutes">m</string>
     <string name="rate_star_description">Rate</string>
     <string name="select_image_preview">Select Image Preview</string>
-    <string name="seperator">|</string>
+    <string name="separator">|</string>
     <string name="stars_example">★★★★★</string>
     <string name="movie_length_example">123m</string>
     <string name="movie_title_example">Batman</string>
@@ -41,5 +41,5 @@
     <string name="genre">Genre</string>
     <string name="note_hint">Add a note…</string>
     <string name="done">Done</string>
-
+    <string name="no_results">No Results</string>
 </resources>

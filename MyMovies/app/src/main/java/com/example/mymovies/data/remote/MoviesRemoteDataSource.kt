@@ -1,7 +1,5 @@
 package com.example.mymovies.data.remote
 
-import android.util.Log
-import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 

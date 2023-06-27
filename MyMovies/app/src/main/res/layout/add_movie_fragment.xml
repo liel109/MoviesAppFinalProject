@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:padding="10dp"
-            android:text="No Results"
+            android:text="@string/no_results"
             android:textSize="25sp"/>
 
         <ProgressBar

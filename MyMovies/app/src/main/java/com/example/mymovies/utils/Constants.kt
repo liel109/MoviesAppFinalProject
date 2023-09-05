@@ -6,7 +6,7 @@ class Constants {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val IMAGE_URL = "http://image.tmdb.org/t/p/w500"
-        const val AUTHENTICATION_KEY = "17fc2b15219e36d398f4b041aa08856f"
+        const val AUTHENTICATION_KEY = "Your Key Here"
         const val POP_ANIMATION_DURATION = 500L
         lateinit var ID_TO_STRING_GENRES : Map<Int, String>
 

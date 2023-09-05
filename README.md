@@ -1,6 +1,6 @@
-# My Favorite Movie App
+# My Movies App
 
-Welcome to the "My Favorite Movie" Android application repository! This native Android app allows you to search among a database of movies, save your favorite movies, and store information about them, including length, rating, and plot summary. The app is designed to run on Android devices and is written in Kotlin using Android Studio.
+Welcome to the "My Movies" Android application repository! This native Android app allows you to search among a database of movies, save your favorite movies, and store information about them, including length, rating, and plot summary. The app is designed to run on Android devices and is written in Kotlin using Android Studio.
 
 ## Features
 
@@ -32,3 +32,21 @@ This app leverages several technologies to provide a seamless movie browsing and
 - **Hilt**: Hilt is used for dependency injection, making it easier to manage dependencies and maintain clean code.
 
 - **Glide**: Glide is used for efficient image loading and caching.
+
+## Getting Started
+
+Follow these steps to set up the "My Favorite Movie" app on your local development environment:
+
+1. Clone this GitHub repository to your local machine.
+
+2. Open the project in Android Studio.
+
+3. Build and run the app on your Android device or emulator.
+
+## Configuration
+
+Before running the app, you'll need to configure some settings:
+
+1. **TMDB API Key**: Obtain an API key from the [TMDB website](https://www.themoviedb.org/documentation/api) and add it to the `Constants.kt` file (under "app/java/com.example.mymovies/utils"):
+
+const val AUTHENTICATION_KEY = "Your Key Here"
